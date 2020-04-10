@@ -1,5 +1,6 @@
 # JENKINS DOCKER EASY SETUP
 Quick & easy configuration to run Jenkins on docker.
+Repository based on the work of [CodeMazeBlog](https://github.com/CodeMazeBlog) [docker-series](https://github.com/CodeMazeBlog/docker-series)
 
 
 ## Usage:
