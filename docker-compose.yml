@@ -3,7 +3,7 @@ services:
     jenkins-master:
       build:
         context: jenkins/master
-      container_name: jenkins-master
+      # container_name: jenkins-master
       ports:
         - '8080:8080'
         - '50000:50000'
@@ -14,7 +14,7 @@ services:
     jenkins-agent:
       build:
         context: jenkins/agent
-      container_name: jenkins-slave
+      # container_name: jenkins-slave
       restart: always
       environment:
         - 'JENKINS_URL=http://jenkins-master:8080'
