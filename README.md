@@ -1,2 +1,2 @@
 # JENKINS DOCKER EASY SETUP
-Configuration to set up a Jenkisn docker installation.
+Quick & easy configuration to run Jenkins on docker.
