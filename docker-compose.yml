@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+    jenkins-master:
+      build:
+        context: jenkins/master
+      container_name: jenkins-master
+      ports:
+        - '8080:8080'
+        - '50000:50000'
+      # image: localhost:5000/jenkins
+      networks:
+        - jenkins
+
+    jenkins-agent:
+      build:
+        context: jenkins/agent
+      container_name: jenkins-slave
+      restart: always
+      environment:
+        - 'JENKINS_URL=http://jenkins-master:8080'
+      # image: localhost:5000/jenkins-slave
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock  # Expose the docker daemon in the container
+        - ./jenkins/data/home/jenkins:/home/jenkins # Avoid mysql volume mount issue
+      networks:
+        - jenkins
+      depends_on:
+        - jenkins-master
+
+networks:
+  jenkins:
+    driver: bridge
