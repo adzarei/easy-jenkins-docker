@@ -23,7 +23,8 @@ RUN mkdir -p /var/lib/jenkins
 
 # Start-up script to attach the slave to the master
 # Use preferred implementation.
-ADD conf/python-jenkins-slave.py /var/lib/jenkins/slave.py
+ADD conf/Slave /var/lib/jenkins/Slave
+ADD conf/SlaveDriver.py /var/lib/jenkins/SlaveDriver.py
 
 WORKDIR /home/jenkins
 
@@ -38,4 +39,4 @@ ENV SLAVE_LABELS "docker"
 ENV SLAVE_WORING_DIR ""
 ENV CLEAN_WORKING_DIR "true"
 
-CMD [ "python", "-u", "/var/lib/jenkins/slave.py" ]
+CMD [ "python", "-u", "/var/lib/jenkins/SlaveDriver.py" ]
