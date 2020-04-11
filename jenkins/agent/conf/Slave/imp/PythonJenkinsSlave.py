@@ -40,7 +40,7 @@ class PythonJenkinsSlave(SlaveBase):
 
     @property
     def slave_address(self):
-        return __slave_address
+        return self.__slave_address
 
     @property
     def slave_secret(self):
