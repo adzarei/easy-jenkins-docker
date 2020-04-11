@@ -2,7 +2,7 @@
 # https://python-jenkins.readthedocs.io/en/latest/
 import jenkins
 
-from Slave import SlaveBase
+from Slave.SlaveBase import SlaveBase
 
 class PythonJenkinsSlave(SlaveBase):
 
@@ -32,7 +32,7 @@ class PythonJenkinsSlave(SlaveBase):
 
     @property
     def jnlp_url(self):
-        raise self.jenkins_url + '/computer/' + self.__slave_name + '/slave-agent.jnlp'
+        return self.jenkins_url + '/computer/' + self.__slave_name + '/slave-agent.jnlp'
 
     @property
     def slave_jar_url(self):
@@ -61,12 +61,13 @@ class PythonJenkinsSlave(SlaveBase):
         else:
             if self.master_ready():
                 return jenkins.Jenkins(self.jenkins_url, username=self.jenkins_user, password=self.jenkins_password)
+
             else:
                 raise Exception('Master is not ready!')
 
     def slave_create(self, node_name, working_dir, executors, labels):
         self.__slave_name = node_name
-        self.__jenkins_master.create_node(node_name, remoteFS=working_dir, numExecutors=int(executors), labels=labels, launcher=jenkins.LAUNCHER_JNLP)
+        self.jenkins_master.create_node(node_name, remoteFS=working_dir, numExecutors=int(executors), labels=labels, launcher=jenkins.LAUNCHER_JNLP)
 
     def slave_delete(self, node_name):
-        self.__jenkins_master.delete_node(node_name)
+        self.jenkins_master.delete_node(node_name)

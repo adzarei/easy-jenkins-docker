@@ -1,11 +1,15 @@
-# from abc import ABC, abstractmethod
+# from abc import ABCMeta, abstractmethod
 import os
 import urllib
 import subprocess
 import requests
 
-class SlaveBase:
-    '''Base CLass for slave objects'''
+class SlaveBase():
+    '''Base Class for slave objects'''
+    # __metaclass__ = ABCMeta
+
+    def __init__(self):
+        pass
 
     @property
     def slave_jar(self):
@@ -54,14 +58,14 @@ class SlaveBase:
         except:
             return False
 
-    def slave_download(self, target):
+    def slave_download(self):
         if os.path.isfile(self.slave_jar):
             os.remove(self.slave_jar)
 
         loader = urllib.URLopener()
         loader.retrieve(self.slave_jar_url, self.slave_jar)
 
-    def slave_run():
+    def slave_run(self):
         params = [ 'java', '-jar', self.slave_jar, '-jnlpUrl', self.jnlp_url ]
         if self.slave_address != '':
             params.extend([ '-connectTo', self.slave_address ])

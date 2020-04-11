@@ -1,4 +1,7 @@
-from Slave import SlaveFactory, SlaveBase
+from Slave.SlaveFactory import SlaveFactory
+import time
+import os
+import shutil
 
 def main():
     process = None
@@ -8,8 +11,8 @@ def main():
         os.environ['JENKINS_URL'],
         os.environ['JENKINS_USER'],
         os.environ['JENKINS_PASS'],
-        slave_address=os.environ['JENKINS_SLAVE_ADDRESS'],
-        slave_secret=os.environ['SLAVE_SECRET']
+        os.environ['JENKINS_SLAVE_ADDRESS'],
+        os.environ['SLAVE_SECRET']
     )
 
     slave = slaveFactory.get_slave("PYTHON_JENKINS")
@@ -32,22 +35,22 @@ def main():
     # Clean working directory.
     if os.environ['CLEAN_WORKING_DIR'] == 'true':
         clean_dir(os.getcwd())
-        print "Cleaned up working directory."
+        print("Cleaned up working directory.")
 
     # Create Jenkins Agent
     slave.slave_create(slave_name, os.getcwd(), os.environ['SLAVE_EXECUTORS'], os.environ['SLAVE_LABELS'])
-    print 'Created temporary Jenkins slave.'
+    print('Created temporary Jenkins slave.')
 
     # Run slave JAR.
     process = slave.slave_run()
-    print 'Started Jenkins Agent with name "' + slave_name + '" and labels [' + os.environ['SLAVE_LABELS'] + '].'
+    print('Started Jenkins Agent with name "' + slave_name + '" and labels [' + os.environ['SLAVE_LABELS'] + '].')
     process.wait()
 
     #Gracefully close jankins agent.
-    print 'Jenkins Agent stopped.'
+    print('Jenkins Agent stopped.')
     if os.environ['SLAVE_NAME'] == '':
         slave_delete(slave_name)
-        print 'Removed temporary Jenkins Agent.'
+        print('Removed temporary Jenkins Agent.')
 
 
 def clean_dir(dir):

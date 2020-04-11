@@ -1,5 +1,5 @@
-from Slave.imp import JenkinsWebAPISlave, PythonJenkinsSlave
-from Slave import SlaveBase
+from Slave.imp.PythonJenkinsSlave import PythonJenkinsSlave
+from Slave.SlaveBase import SlaveBase
 
 
 class SlaveFactory():
