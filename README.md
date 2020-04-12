@@ -13,6 +13,6 @@ Then spin up the containers with docker-compose:
 
 `docker-compose up --build`
 
-You can set the number of Jenkins agents with docker-compose' flag scale:
+You can set the number of Jenkins agents with docker-compose's flag scale:
 
 `docker-compose up --build --scale jenkins-agent=2`
